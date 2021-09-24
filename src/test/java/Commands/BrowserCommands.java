@@ -11,7 +11,7 @@ public class BrowserCommands {
         System.setProperty("webdriver.chrome.driver","chromedriver");
 //        WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-        driver.get("http://the-internet.herokuapp.com/windows");
+        driver.get("https://github.com/gigatodadze/MavenEmpty");
         driver.manage().window().maximize();
     }
 }
