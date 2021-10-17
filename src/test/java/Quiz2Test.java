@@ -45,7 +45,7 @@ public class Quiz2Test {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.navigate().to("http://webdriveruniversity.com/Dropdown-Checkboxes-RadioButtons/index.html");
+        driver.get("http://webdriveruniversity.com/Dropdown-Checkboxes-RadioButtons/index.html");
         WebElement LanguageDropDown = driver.findElement(By.id("dropdowm-menu-1"));
         Select myLang = new Select(LanguageDropDown);
         myLang.selectByVisibleText("C#");
@@ -77,11 +77,13 @@ public class Quiz2Test {
         driver.quit();
     }
     @Test
-    public void thirdTask(){
+    public void thirdTest(){
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.navigate().to("http://the-internet.herokuapp.com/iframe");
+        driver.get("http://the-internet.herokuapp.com/iframe");
+        WebDriverWait wait = new WebDriverWait(driver, 100);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("mce_0_ifr"))); // ეს შეიძლება თქვენთან არ დასჭირდეს, ჩემთან ვერ ასწრებდა ჩატვირთვას
         WebElement iframe = driver.findElement(By.id("mce_0_ifr"));
         driver.switchTo().frame(iframe);
         WebElement body = driver.findElement(By.tagName("body"));
