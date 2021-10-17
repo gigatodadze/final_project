@@ -7,15 +7,16 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.nio.file.LinkPermission;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-//import org.openqa.selenium.support.ui.Select;
+
 
 public class Quiz2Test {
 
     public Quiz2Test() {
+//        firstTest();
+//        secondTest();
+//        thirdTest();
     }
     @Test
     public void firstTest() {
@@ -92,8 +93,10 @@ public class Quiz2Test {
         textArea.clear();
         textArea.sendKeys("Here Goes");
         driver.switchTo().defaultContent();
-        WebElement ButtonCen = driver.findElement(By.cssSelector("button[aria-label=\"Align center\"]"));
-        ButtonCen.click();
+        WebElement CenteredButton = driver.findElement(By.cssSelector("button[aria-label=\"Align center\"]"));
+        CenteredButton.click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS); //რო დავინახო იმუშავა თუარა
         driver.quit();
+        //დებაგერით რო ვუშვებ მუშაობს, ისე ხან ასწრებს ჩატვირთვას ქრომში აიფრეიმი ხან ვერა და კოდი მანამდე ეშვება და ფეილდება
     }
 }
