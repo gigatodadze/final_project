@@ -20,7 +20,7 @@ public class Quiz2Test {
     }
     @Test
     public void firstTest() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver96");
         WebDriver driver = new ChromeDriver();
         driver.get("https://demoqa.com/progress-bar");
         driver.manage().window().maximize();

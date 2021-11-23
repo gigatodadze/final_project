@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class WebElementsTest {
     @Test
     public void firstTest(){
-        System.setProperty("webdriver.chrome.driver","chromedriver");
+        System.setProperty("webdriver.chrome.driver","chromedriver96");
         WebDriver driver = new ChromeDriver();
         driver.get("http://the-internet.herokuapp.com/add_remove_elements/");
         driver.manage().window().maximize();
