@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="midii" />
         <module name="MavenEmpty" />
+        <module name="MepheProject" />
       </profile>
     </annotationProcessing>
   </component>
