@@ -1,19 +1,19 @@
-package Commands;
+package Model;
 
 import io.restassured.response.Response;
-import org.apache.commons.lang.StringUtils;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Objects;
+import static com.codeborne.selenide.Selenide.$;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class BookStore {
+public class DemoqaBooks {
 
     public String checkBooks() {
 
@@ -23,24 +23,25 @@ public class BookStore {
 
     }
 
-    public void search(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+    public void searchWithInput(WebDriver driver){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("searchBox")));
 
         WebElement searchBox = driver.findElement(By.id("searchBox"));
 
         searchBox.sendKeys("O'Reilly Media");
+    }
+    public void search(WebDriver driver) {
 
-        var elements = driver.findElements(By.xpath("//div[@class='rt-td' and contains(text(),'Reilly Media')]"));
+        List<WebElement> allElements = driver.findElements(By.xpath("//div[@class='rt-td' and contains(text(),'Reilly Media')]"));
 
-        var str = this.checkBooks();
-        String myBook = "O'Reilly Media";
+        System.out.print(allElements.size());
 
-        assert elements.stream().count() == StringUtils.countMatches(str, myBook);
-
-        System.out.print(StringUtils.countMatches(str, myBook));
-        System.out.println(StringUtils.countMatches(str, myBook));
+        Response response = given().when().get("https://bookstore.toolsqa.com/BookStore/v1/Books");
+        Object responseBody = response.getBody();
+        
+        System.out.print(responseBody.toString());
     }
 
 

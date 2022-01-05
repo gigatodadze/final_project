@@ -1,7 +1,6 @@
-package Commands;
+package Model;
 
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,89 +32,83 @@ public class User {
         return password;
     }
 
+    public String UsernameAndPasswordtoString() {
+        // TODO Auto-generated method stub
+        return "{" + "\"userName\":" + "\"" + username + "\"," + "\"password\":" + "\"" + password + "\"" + "}";
+    }
+
     public void register() {
 
-        String Body = "{" +
-                "\"username\":" + "\"" + username + "\"," +
-                "\"password\":" + "\"" + password + "\"" +
-                "}";
+        String myBody = UsernameAndPasswordtoString();
 
-        Response response = given()
+        Response responseForRegistration = given()
                 .header("Content-type", "application/json")
-                .body(Body)
+                .body(myBody)
                 .post("https://bookstore.toolsqa.com/Account/v1/User")
-                .then()
-                .extract().response();
+                .then().extract().response();
 
     }
 
     public void login(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 8);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("userName")));
 
-        WebElement usernameInput = driver.findElement(By.id("userName"));
-        WebElement passwordInput = driver.findElement(By.id("password"));
+        WebElement username = driver.findElement(By.id("userName"));
+        WebElement password = driver.findElement(By.id("password"));
         WebElement loginButton = driver.findElement(By.id("login"));
 
-        usernameInput.sendKeys(this.getUserName());
-        passwordInput.sendKeys(this.getPassWord());
+        username.sendKeys(this.getUserName());
+        password.sendKeys(this.getPassWord());
         loginButton.click();
 
     }
 
     public void delete(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Delete Account']")));
 
-        WebElement deleteButton = driver.findElement(By.xpath("//*[text()='Delete Account']"));
-        deleteButton.click();
+        WebElement deleteAccountButton = driver.findElement(By.xpath("//*[text()='Delete Account']"));
+        deleteAccountButton.click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("closeSmallModal-ok")));
-
-        WebElement deleteCheckButton = driver.findElement(By.id("closeSmallModal-ok"));
-        deleteCheckButton.click();
+        WebElement okDeleteButton = driver.findElement(By.id("closeSmallModal-ok"));
+        okDeleteButton.click();
 
         wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
 
 
-        assert Objects.equals(alert.getText(), "User has been Deleted.");
-        alert.accept();
+        assert Objects.equals(alert.getText(), "User Deleted.");
+        alert.dismiss();
 
     }
 
     public void checkLogin(WebDriver driver) {
 
         this.login(driver);
-
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
         WebElement error = driver.findElement(By.id("name"));
-
-        assert Objects.equals(error.getText(), "Username or password is incorrect!");
+        assert Objects.equals(error.getText(), "Invalid username or password!");
 
     }
 
     public void authorized() {
 
-        String Body = "{" +
-                "\"userName\":" + "\"" + username + "\"," +
-                "\"password\":" + "\"" + password + "\"" +
-                "}";
+        String myBody = UsernameAndPasswordtoString();
 
-        Response response = given()
+        Response responseForAuthorization = given()
                 .header("Content-type", "application/json")
-                .body(Body)
+                .body(myBody)
                 .post("https://bookstore.toolsqa.com/Account/v1/Authorized")
-                .then()
-                .extract().response();
+                .then().extract().response();
 
-        response.print();
-        String responseBody = response.getBody().asString();
-        assert responseBody.contains("User is not found!");
+        responseForAuthorization.print();
+        String responseBody = responseForAuthorization.getBody().asString();
+        assert responseBody.contains("User not found!");
     }
 
 
