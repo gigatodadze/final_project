@@ -1,28 +1,22 @@
 package BaseTests;
 
-import Model.DemoqaBooks;
 import Model.User;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeTest;
 
+
 public class FinalProjectTests extends Base {
 
-    @BeforeTest
-    public void setup() {
-        Base baseTest = new Base();
-        baseTest.initialize();
-        driver = getDriver();
-    }
 
     @Test
     public void main() {
-        this.setup();
-//        this.Test1(driver);
-        this.Test2(driver);
+        initialize();
+        this.Test1();
+        this.Test2();
     }
-
-    public void Test1(WebDriver driver) {
+    @BeforeTest
+    public void Test1() {
 
         driver.get("https://demoqa.com/login");
 
@@ -37,8 +31,8 @@ public class FinalProjectTests extends Base {
         user.authorized();
 
     }
-
-    public void Test2(WebDriver driver) {
+    @BeforeTest
+    public void Test2() {
 
         driver.get("https://demoqa.com/books");
 
