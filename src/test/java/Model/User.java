@@ -1,6 +1,8 @@
 package Model;
 
+import io.qameta.allure.Attachment;
 import io.restassured.response.Response;
+import org.junit.Rule;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,7 +50,7 @@ public class User {
                 .then().extract().response();
 
     }
-
+    @Attachment("Screenshot on failure")
     public void login(WebDriver driver) {
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -84,7 +86,7 @@ public class User {
         alert.dismiss();
 
     }
-
+    @Attachment("Screenshot on failure")
     public void checkLogin(WebDriver driver) {
 
         this.login(driver);
@@ -92,6 +94,7 @@ public class User {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
         WebElement error = driver.findElement(By.id("name"));
+
         assert Objects.equals(error.getText(), "Invalid username or password!");
 
     }
