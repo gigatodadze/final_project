@@ -16,14 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DemoqaBooks {
-//
-//    @BeforeTest
-//    public void initializeBookStore(){
-//        Base initial = new Base();
-//        initial.initialize();
-////        RestAssured.baseURI = "https://bookstore.toolsqa.com";
-////        RestAssured.defaultParser = Parser.JSON;
-//    }
 
     public void searchWithInput(WebDriver driver){
 
@@ -34,12 +26,6 @@ public class DemoqaBooks {
         searchBox.sendKeys("O'Reilly Media");
     }
     public void search(WebDriver driver) {
-
-//        Base initial = new Base();
-//        initial.initialize();
-//        driver.get("https://demoqa.com/books");
-//        RestAssured.baseURI = "https://bookstore.toolsqa.com";
-//        RestAssured.defaultParser = Parser.JSON;
 
         List<WebElement> allReillyBooks = driver.findElements(By.xpath("//div[@class='rt-td' and contains(text(),'Reilly Media')]"));
 
