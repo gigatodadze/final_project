@@ -9,6 +9,7 @@
         <module name="midii" />
         <module name="MavenEmpty" />
         <module name="MepheProject" />
+        <module name="GigaTFinalProject" />
       </profile>
     </annotationProcessing>
   </component>
